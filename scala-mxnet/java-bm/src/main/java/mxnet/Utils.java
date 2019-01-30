@@ -11,16 +11,15 @@ public class Utils {
     
     private static boolean runBatch = false;
     
-    public static List<Context> getContext() {
+    public static List<Context> getContext(String context) {
         
-        List<Context> context = new ArrayList<Context>();
-        if (System.getenv().containsKey("SCALA_TEST_ON_GPU") &&
-                Integer.parseInt(System.getenv("SCALA_TEST_ON_GPU")) == 1) {
-            context.add(Context.gpu());
+        List<Context> contexts = new ArrayList<Context>();
+        if (context.equals("gpu")) {
+            contexts.add(Context.gpu());
         } else {
-            context.add(Context.cpu());
+            contexts.add(Context.cpu());
         }
-        return context;
+        return contexts;
     }
     
     public static CmdLineParser parse(Object inst, String[] args) {

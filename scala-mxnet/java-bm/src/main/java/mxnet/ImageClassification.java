@@ -20,7 +20,8 @@ public class ImageClassification {
     private static int batchSize = 1;
     @Option(name = "--times", usage = "Number of times to run the benchmark")
     private static int times = 1;
-    
+    @Option(name = "--context", usage = "Context to run on")
+    private static String ctx = "cpu";
     
     Predictor loadModel(String modelPathPrefix, List<Context> context, int batchSize) {
         Shape inputShape = new Shape(new int[] {batchSize, 3, 224, 224});
@@ -103,7 +104,7 @@ public class ImageClassification {
         ImageClassification inst = new ImageClassification();
         CmdLineParser parser = Utils.parse(inst, args);
         
-        List<Context> context = Utils.getContext();
+        List<Context> context = Utils.getContext(ctx);
         
         try(ResourceScope scope = new ResourceScope()) {
             System.out.println("Running single inference");
