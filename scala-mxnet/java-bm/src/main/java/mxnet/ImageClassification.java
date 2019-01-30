@@ -40,7 +40,7 @@ public class ImageClassification {
         NDArray imgND = loadSingleImage(inputImagePath, context);
         List<NDArray> nd = new ArrayList<>();
         NDArray[] temp = new NDArray[batchSize];
-        for (int i = 0; i < batchSize; i++) temp[i] = imgND.copyTo(context.get(0));
+        for (int i = 0; i < batchSize; i++) temp[i] = imgND.copy();
         NDArray batched = NDArray.concat(temp, batchSize, 0, null)[0];
         nd.add(batched);
         return nd;
