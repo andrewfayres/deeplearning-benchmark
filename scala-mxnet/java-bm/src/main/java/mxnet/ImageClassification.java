@@ -56,7 +56,7 @@ public class ImageClassification {
         // println("Warming up the system")
         for (int i = 0; i < 5; i++) {
             try(ResourceScope scope = new ResourceScope()) {
-                loadedModel.predictWithNDArray(dataset);
+                loadedModel.predictWithNDArray(dataset).res.get(0).waitToRead();
             }
         }
         // println("Warm up done")
@@ -65,7 +65,7 @@ public class ImageClassification {
         for (int i = 0; i < times; i++) {
             try(ResourceScope scope = new ResourceScope()) {
                 long startTime = System.nanoTime();
-                loadedModel.predictWithNDArray(dataset);
+                loadedModel.predictWithNDArray(dataset).res.get(0).waitToRead();
                 result[i] = (System.nanoTime() - startTime) / (1e6 * 1.0);
                 System.out.printf("Inference time at iteration: %d is : %f \n", i, result[i]);
             }
